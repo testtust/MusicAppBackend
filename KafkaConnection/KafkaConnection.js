@@ -7,14 +7,16 @@ const caCert = fs.readFileSync('./KafkaConnection/ca.pem', 'utf-8');
 const kafka = new Kafka({
   clientId: 'MusicAppNew',
   brokers: [process.env.KAFKA_BROKER],
-  // ssl: {
-  //   ca: [caCert], 
-  // },
-  // sasl: {
-  //   mechanism: 'PLAINTEXT', // Check if Aiven requires SCRAM-SHA-512 instead
-  //   // Your Aiven credentials
-  // },
-  // logLevel: logLevel.ERROR,
+  ssl: {
+    ca: [caCert], 
+  },
+  sasl: {
+    mechanism: 'SCRAM-SHA-512',
+    username:"avnadmin",
+    password:"AVNS_9U_F_D6RfJyeUKHzReC"          // Check if Aiven requires SCRAM-SHA-512 instead
+    // Your Aiven credentials
+  },
+  logLevel: logLevel.ERROR,
 });
 
 const producer = kafka.producer();
